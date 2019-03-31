@@ -1,0 +1,12 @@
+{
+    "name": "test-test-stepfunction",
+    "version": "1.0.0",
+    "description": "Testing testing stepfunctions",
+    "devDependencies": {
+        "jest": "^24.5.0",
+        "jest-cli": "^24.5.0"
+    },
+    "dependencies": {
+        "jsonpath": "^1.0.1"
+    }
+}

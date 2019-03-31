@@ -1,0 +1,77 @@
+{
+    "Comment": "A Hello World example of the Amazon States Language using a Pass state",
+    "StartAt": "Start",
+    "States": {
+        "Start": {
+            "Type": "Task",
+            "Resource": "${SetupLambda.Arn}",
+            "Next": "SetupStuff"
+        },
+        "SetupStuff": {
+            "Type": "Parallel",
+            "Next": "MergeIt",
+            "Branches": [
+                {
+                    "StartAt": "Branch1",
+                    "States": {
+                        "Branch1": {
+                            "Type": "Task",
+                            "Resource": "${branch1}",
+                            "End": true
+                        }
+                    }
+                },
+                {
+                    "StartAt": "Branch2",
+                    "States": {
+                        "Branch2": {
+                            "Type": "Task",
+                            "Resource": "${branch2}",
+                            "End": true
+                        }
+                    }
+                }
+            ]
+        },
+        "MergeIt": {
+            "Type": "Task",
+            "Next": "WhatShouldWeDo",
+            "Resource": "${merge}"
+        },
+        "WhatShouldWeDo": {
+            "Type": "Choice",
+            "Default": "TryAgain",
+            "Choices": [
+                {
+                    "Variable": "$.flag",
+                    "StringEquals": "end",
+                    "Next": "Done"
+                },
+                {
+                    "Variable": "$.flag",
+                    "StringEquals": "error",
+                    "Next": "Fail"
+                }
+            ]
+        },
+        "TryAgain": {
+            "Type": "Wait",
+            "SecondsPath": "$.TimeToWait",
+            "Next": "CheckStatus"
+        },
+        "CheckStatus": {
+            "Type": "Task",
+            "Resource": "${CheckLambda.Arn}",
+            "Next": "WhatShouldWeDo"
+        },
+        "Done": {
+            "Type": "Pass",
+            "End": true
+        },
+        "Fail": {
+            "Type": "Fail",
+            "Cause": "Whoops.",
+            "Error": "This is an error"
+        }
+    }
+}
