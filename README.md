@@ -40,9 +40,9 @@ describe('This is a test', () => {
 
 Some more details examples:
 
-* [Simple javascript example](./examples/simple-javascript).
-* [A complete javascript example which uses mocks and similar features](./examples/full-javascript)
-* [AN example where we have lambdas in another language and we mock them away](./examples/non-javascript)
+* [Simple javascript example](./examples/simple-javascript/stepfunction.test.js).
+* [A complete javascript example which uses mocks and similar features](./examples/full-javascript/stepfunction.test.js)
+* [An example where we have lambdas in another language and we mock them away](./examples/non-javascript/stepfunction.test.js)
 
 ## Unsupported things
 
