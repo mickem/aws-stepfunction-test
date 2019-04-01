@@ -1,12 +1,38 @@
 {
-    "name": "test-test-stepfunction",
+    "license": "MIT",
+    "main": "index.js",
+    "name": "aws-stepfunction-test",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mickem/aws-stepfunction-test.git"
+    },
     "version": "1.0.0",
-    "description": "Testing testing stepfunctions",
+    "description": "Unit testing for AWS stepfunctions",
     "devDependencies": {
         "jest": "^24.5.0",
-        "jest-cli": "^24.5.0"
+        "jest-cli": "^24.5.0",
+        "eslint": "^5.16.0"
     },
     "dependencies": {
         "jsonpath": "^1.0.1"
+    },
+    "jest": {
+        "coverageDirectory": "coverage",
+        "coverageReporters": [
+            "lcov",
+            "text-summary"
+        ],
+        "testEnvironment": "node",
+        "testMatch": [
+            "<rootDir>/examples/**/*test*.js"
+        ],
+        "coveragePathIgnorePatterns": [
+            "<rootDir>/node_modules/**"
+        ]
+    },
+    "scripts": {
+        "coverage": "jest --coverage",
+        "lint": "eslint .",
+        "test": "jest"
     }
 }

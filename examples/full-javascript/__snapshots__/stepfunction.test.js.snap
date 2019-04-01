@@ -2,6 +2,7 @@
 
 exports[`This is a test Should fail 1`] = `
 Object {
+  "getSteps": [Function],
   "output": Object {
     "branches": "branch 1, branch 2",
     "flag": "error",
@@ -45,6 +46,7 @@ Object {
       "result": Object {
         "branches": Array [
           Object {
+            "getSteps": [Function],
             "output": Object {
               "branch": "branch 1",
               "flag": "wicked",
@@ -70,6 +72,7 @@ Object {
             ],
           },
           Object {
+            "getSteps": [Function],
             "output": Object {
               "branch": "branch 2",
               "flag": "wicked",
@@ -218,6 +221,7 @@ Object {
 
 exports[`This is a test Should work 1`] = `
 Object {
+  "getSteps": [Function],
   "output": Object {
     "branches": "branch 1, branch 2",
     "flag": "end",
@@ -261,6 +265,7 @@ Object {
       "result": Object {
         "branches": Array [
           Object {
+            "getSteps": [Function],
             "output": Object {
               "branch": "branch 1",
               "flag": "test1",
@@ -286,6 +291,7 @@ Object {
             ],
           },
           Object {
+            "getSteps": [Function],
             "output": Object {
               "branch": "branch 2",
               "flag": "test1",

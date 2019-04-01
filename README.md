@@ -8,110 +8,45 @@ Lambda functions have to be resolved locally.
 
 ## Usage
 
-Quick example of using the tester to validate running a stepfunction with various mocked responses.
-Here we do not mock the lambda instead we mock the remote client the lambda function is using. Thus we are including the logic in the lambdas in the test.
-You can opt to mock the lambda instead using the similar methods.
-
+```bash
+npm install --save-dev aws-stepfunction-test
+```
+Then assuming you have your stepfunction in `stepfunction.json` you can create the following test runner (`stepfunction.test.js`):
 ```javascript
-jest.mock('./client');
-const client = require('./client');
-const StepfunctionTest = require('./stepfunction-tester');
+const StepfunctionTester = require('aws-stepfunction-test');
+
+// Map various lambda references to javascript functions.
+const lambdas = {
+    'arn:aws:lambda:region:account-id:function:step1': 'mock.js',
+    'arn:aws:lambda:region:account-id:function:step2': 'mock.js',
+    'arn:aws:lambda:region:account-id:function:step3': 'mock.js',
+}
 
 describe('This is a test', () => {
     test('Should work', async () => {
-        const mocks = {
-            beforeEach: (input) => {
-                // Using before each we can mock things for all States.
-                client.foo.mockImplementation(() => 'test1')
-            },
-            CheckStatus: (input) => {
-                // You can also create a spcific mock step for each State
-                if (input.flag === 'test1') {
-                    // We can also use the input to determine what we should mock to mock different outcomes
-                    client.foo.mockImplementation(() => 'test2')
-                } else {
-                    client.foo.mockImplementation(() => 'end')
-                }
-            }
-        }
-        const step = new StepfunctionTest({
-            file: './stepfunction.json', 
-            mocks,
-            // The simple lambda resolver will translate ${myWickedLambda.Arn} in to my-wicked.handler
-            // But you can override to whatever you have.
-            lambdaResolver: StepfunctionTest.simpleLambdaResource,
+        const step = new StepfunctionTester({
+            file: 'stepfunction.json', 
+            lambdaResolver: (arn) => ({ file: lambdas[arn]})
         });
-
-        const result = step.run({
-            something: 'else',
+        const result = await step.run({
+            value: 1
         }); 
-        // The result is quite large
-        expect(result).toMatchSnapshot();
-        // We assert on anything that happened by using the trail output variable.
-        expect(result.trail.map(t => t.name)).toEqual([
-            "Start",
-            "SetupStuff",
-            "MergeIt",
-            "WhatShouldWeDo",
-            "TryAgain",
-            "CheckStatus",
-            "WhatShouldWeDo",
-            "TryAgain",
-            "CheckStatus",
-            "WhatShouldWeDo",
-            "Done",
-        ]);
-        // We can also asser on the actual rsulting output
         expect(result.output).toEqual({
-            "branches": "branch 1, branch 2",
-            "flag": "end",
-            "foo": "bar",
-            "something": "else",
-        })
-    })
-    test('Should fail', async () => {
-        // Because stepfunctions are quick (as there are no waits/delays) you can re-run the stepfunction for various scenarios
-        const mocks = {
-            beforeEach: (input) => {
-                client.foo.mockImplementation(() => 'wicked')
-            },
-            CheckStatus: (input) => {
-                client.foo.mockImplementation(() => 'error')
-            }
-        }
-        const step = new StepfunctionTest({
-            file: './stepfunction.json', 
-            mocks,
-            lambdaResolver: StepfunctionTest.simpleLambdaResource,
-        });
-
-        const result = step.run({
-            something: 'else',
-        });
-        expect(result).toMatchSnapshot();
-        expect(result.trail.map(t => t.name)).toEqual([
-            "Start",
-            "SetupStuff",
-            "MergeIt",
-            "WhatShouldWeDo",
-            "TryAgain",
-            "CheckStatus",
-            "WhatShouldWeDo",
-            "Fail"
-        ]);
-        expect(result.output).toEqual({
-            "branches": "branch 1, branch 2",
-            "flag": "error",
-            "foo": "bar",
-            "something": "else",
+            "value": 4
         })
     })
 })
 ```
 
+Some more details examples:
+
+* [Simple javascript example](./examples/simple-javascript).
+* [A complete javascript example which uses mocks and similar features](./examples/full-javascript)
+* [AN example where we have lambdas in another language and we mock them away](./examples/non-javascript)
+
 ## Unsupported things
 
-As this is an early prototype there are many things which are not supported (yet).
+As this is an early prototype there are some things which are not supported (yet).
  * Loading stepfunctions/Lambdas from cloudformation templates
  * All: InputPath, OutputPath 
  * Pass: Result, ResultPath, Parameters 
@@ -120,5 +55,6 @@ As this is an early prototype there are many things which are not supported (yet
 
 **Unsupported by intent:**
 
- * All: Comment: Does not affect logic.
- * Wait: Seconds, Timestamp, SecondsPath, TimestampPath. For unit testing it does not make sense to wait.
+A few features are ignored by intent as the idea is not to be a stepfunction runner but a way to test stepfunctions.
+ * All: Comment: As they do not affect logic ignoring them seems the best option.
+ * Wait: Seconds, Timestamp, SecondsPath, TimestampPath. For unit testing it does not make sense to wait (use time mocking and validating input/outout) instead.

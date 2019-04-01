@@ -1,6 +1,6 @@
 jest.mock('./client');
 const client = require('./client');
-const StepfunctionTest = require('./stepfunction-tester');
+const StepfunctionTester = require('../../index');
 
 describe('This is a test', () => {
     test('Should work', async () => {
@@ -19,15 +19,15 @@ describe('This is a test', () => {
                 }
             }
         }
-        const step = new StepfunctionTest({
-            file: './stepfunction.json', 
+        const step = new StepfunctionTester({
+            file: 'stepfunction.json', 
             mocks,
             // The simple lambda resolver will translate ${myWickedLambda.Arn} in to my-wicked.handler
             // But you can override to whatever you have.
-            lambdaResolver: StepfunctionTest.simpleLambdaResource,
+            lambdaResolver: 'simple',
         });
 
-        const result = step.run({
+        const result = await step.run({
             something: 'else',
         }); 
         // The result is quite large
@@ -64,13 +64,13 @@ describe('This is a test', () => {
                 client.foo.mockImplementation(() => 'error')
             }
         }
-        const step = new StepfunctionTest({
-            file: './stepfunction.json', 
+        const step = new StepfunctionTester({
+            file: 'stepfunction.json', 
             mocks,
-            lambdaResolver: StepfunctionTest.simpleLambdaResource,
+            lambdaResolver: 'simple',
         });
 
-        const result = step.run({
+        const result = await step.run({
             something: 'else',
         });
         expect(result).toMatchSnapshot();
