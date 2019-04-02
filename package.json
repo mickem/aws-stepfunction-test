@@ -6,7 +6,7 @@
         "type": "git",
         "url": "git+https://github.com/mickem/aws-stepfunction-test.git"
     },
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Unit testing for AWS stepfunctions",
     "devDependencies": {
         "jest": "^24.5.0",
