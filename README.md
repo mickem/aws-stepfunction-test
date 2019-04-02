@@ -48,10 +48,9 @@ Some more details examples:
 
 As this is an early prototype there are some things which are not supported (yet).
  * Loading stepfunctions/Lambdas from cloudformation templates
- * All: InputPath, OutputPath 
+ * All: InputPath, OutputPath (planned next)
  * Pass: Result, ResultPath, Parameters 
  * Task: Parameters, ResultPath, Retry, Catch, TimeoutSeconds, HeartbeatSeconds 
- * Choice: All operators except StringEquals (will be added next)
 
 **Unsupported by intent:**
 
