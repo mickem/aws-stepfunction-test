@@ -3,7 +3,7 @@
 This is intended to allow unit testing of stepfunctions.
 This is not intended to replace integration test but instead allow for quick unit testing in a mocked scenarios.
 It is aimed at stepfunctions written in node.js (Javascript and Typescript et.al.). 
-Test are intended to be executed from within a Javascript test frmework such as Jest.
+Test are intended to be executed from within a Javascript test framework such as Jest.
 Lambda functions have to be resolved locally.
 
 [![Build Status](https://travis-ci.org/mickem/aws-stepfunction-test.svg?branch=master)](https://travis-ci.org/mickem/aws-stepfunction-test) [![npm version](https://badge.fury.io/js/aws-stepfunction-test.svg)](https://badge.fury.io/js/aws-stepfunction-test)
@@ -42,7 +42,7 @@ describe('This is a test', () => {
 
 ### Mocking
 
-It also supports mocking function (both entire functions and mocking inside lambdas) to faciliate easy testing.
+It also supports mocking function (both entire functions and mocking inside lambdas) to facilitate easy testing.
 
 ```javascript
 // ...
@@ -101,4 +101,4 @@ As this is an early prototype there are some things which are not supported (yet
 
 A few features are ignored by intent as the idea is not to be a stepfunction runner but a way to test stepfunctions.
  * All: Comment: As they do not affect logic ignoring them seems the best option.
- * Wait: Seconds, Timestamp, SecondsPath, TimestampPath. For unit testing it does not make sense to wait (use time mocking and validating input/outout) instead.
+ * Wait: Seconds, Timestamp, SecondsPath, TimestampPath. For unit testing it does not make sense to wait (use time mocking and validating input/output) instead.
