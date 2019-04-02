@@ -5,7 +5,7 @@ const StepfunctionTester = require('../../index');
 describe('This is a test', () => {
     test('Should work', async () => {
         const mocks = {
-            beforeEach: (input) => {
+            beforeEach: () => {
                 // Using before each we can mock things for all States.
                 client.foo.mockImplementation(() => 'test1')
             },
@@ -57,10 +57,10 @@ describe('This is a test', () => {
     test('Should fail', async () => {
         // Because stepfunctions are quick (as there are no waits/delays) you can re-run the stepfunction for various scenarios
         const mocks = {
-            beforeEach: (input) => {
+            beforeEach: () => {
                 client.foo.mockImplementation(() => 'wicked')
             },
-            CheckStatus: (input) => {
+            CheckStatus: () => {
                 client.foo.mockImplementation(() => 'error')
             }
         }
