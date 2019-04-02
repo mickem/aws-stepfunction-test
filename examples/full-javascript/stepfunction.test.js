@@ -62,6 +62,9 @@ describe('This is a test', () => {
             },
             CheckStatus: () => {
                 client.foo.mockImplementation(() => 'error')
+            },
+            afterEach: () => {
+                jest.restoreAllMocks();
             }
         }
         const step = new StepfunctionTester({

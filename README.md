@@ -38,6 +38,49 @@ describe('This is a test', () => {
 })
 ```
 
+### Mocking
+
+It also supports mocking function (both entire functions and mocking inside lambdas) to faciliate easy testing.
+
+```javascript
+// ...
+
+describe('This is a test', () => {
+    test('Should work', async () => {
+        const step = new StepfunctionTester({
+            file: 'stepfunction.json', 
+            lambdaResolver: (arn) => ({ file: lambdas[arn]}),
+            mocks: {
+                beforeEach: () => {
+                    // Using before each we can mock things for all States.
+                    jest.spyOn(client, 'foo').mockImplementation(() => 'test1')
+                },
+                afterEach: () => {
+                    jest.restoreAllMocks();
+                },
+                step1: (input) => {
+                    // You can also create a spcific mock step for each State
+                    if (input.flag === 'test1') {
+                        // We can also use the input to determine what we should mock to mock different outcomes
+                        jest.spyOn(client, 'bar').mockImplementation(() => 'test2')
+                    } else {
+                        jest.spyOn(client, 'bar').mockImplementation(() => 'end')
+                    }
+                }
+            }
+        });
+        const result = await step.run({
+            value: 1
+        }); 
+        expect(result.output).toEqual({
+            "value": 4
+        })
+    })
+})
+```
+
+
+
 Some more details examples:
 
 * [Simple javascript example](./examples/simple-javascript/stepfunction.test.js).
