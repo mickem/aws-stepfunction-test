@@ -6,6 +6,8 @@ It is aimed at stepfunctions written in node.js (Javascript and Typescript et.al
 Test are intended to be executed from within a Javascript test frmework such as Jest.
 Lambda functions have to be resolved locally.
 
+[![Build Status](https://travis-ci.org/mickem/aws-stepfunction-test.svg?branch=master)](https://travis-ci.org/mickem/aws-stepfunction-test)
+
 ## Usage
 
 ```bash
