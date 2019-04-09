@@ -6,7 +6,7 @@
         "type": "git",
         "url": "git+https://github.com/mickem/aws-stepfunction-test.git"
     },
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Unit testing for AWS stepfunctions",
     "devDependencies": {
         "jest": "^24.5.0",
@@ -34,5 +34,12 @@
         "coverage": "jest --coverage",
         "lint": "eslint .",
         "test": "jest"
-    }
+    },
+    "keywords": [
+        "aws",
+        "stepfunction",
+        "step-function",
+        "test",
+        "unit-test"
+    ]
 }
