@@ -1,6 +1,272 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`This is a test Should fail 1`] = `
+exports[`Sample test with javascript lambdas A simple case with mocks as well as simple lambda resolver 1`] = `
+Object {
+  "getSteps": [Function],
+  "output": Object {
+    "branches": "branch 1, branch 2",
+    "flag": "end",
+    "foo": "bar",
+    "something": "else",
+  },
+  "trail": Array [
+    Object {
+      "input": Object {
+        "something": "else",
+      },
+      "name": "Start",
+      "output": Object {
+        "flag": "test1",
+        "foo": "bar",
+        "something": "else",
+      },
+      "result": Object {},
+    },
+    Object {
+      "input": Object {
+        "flag": "test1",
+        "foo": "bar",
+        "something": "else",
+      },
+      "name": "SetupStuff",
+      "output": Array [
+        Object {
+          "branch": "branch 1",
+          "flag": "test1",
+          "foo": "bar",
+          "something": "else",
+        },
+        Object {
+          "branch": "branch 2",
+          "flag": "test1",
+          "foo": "bar",
+          "something": "else",
+        },
+      ],
+      "result": Object {
+        "branches": Array [
+          Object {
+            "getSteps": [Function],
+            "output": Object {
+              "branch": "branch 1",
+              "flag": "test1",
+              "foo": "bar",
+              "something": "else",
+            },
+            "trail": Array [
+              Object {
+                "input": Object {
+                  "flag": "test1",
+                  "foo": "bar",
+                  "something": "else",
+                },
+                "name": "Branch1",
+                "output": Object {
+                  "branch": "branch 1",
+                  "flag": "test1",
+                  "foo": "bar",
+                  "something": "else",
+                },
+                "result": Object {},
+              },
+            ],
+          },
+          Object {
+            "getSteps": [Function],
+            "output": Object {
+              "branch": "branch 2",
+              "flag": "test1",
+              "foo": "bar",
+              "something": "else",
+            },
+            "trail": Array [
+              Object {
+                "input": Object {
+                  "flag": "test1",
+                  "foo": "bar",
+                  "something": "else",
+                },
+                "name": "Branch2",
+                "output": Object {
+                  "branch": "branch 2",
+                  "flag": "test1",
+                  "foo": "bar",
+                  "something": "else",
+                },
+                "result": Object {},
+              },
+            ],
+          },
+        ],
+      },
+    },
+    Object {
+      "input": Array [
+        Object {
+          "branch": "branch 1",
+          "flag": "test1",
+          "foo": "bar",
+          "something": "else",
+        },
+        Object {
+          "branch": "branch 2",
+          "flag": "test1",
+          "foo": "bar",
+          "something": "else",
+        },
+      ],
+      "name": "MergeIt",
+      "output": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test1",
+        "foo": "bar",
+        "something": "else",
+      },
+      "result": Object {},
+    },
+    Object {
+      "input": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test1",
+        "foo": "bar",
+        "something": "else",
+      },
+      "name": "WhatShouldWeDo",
+      "output": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test1",
+        "foo": "bar",
+        "something": "else",
+      },
+      "result": Object {
+        "selected": "default",
+      },
+    },
+    Object {
+      "input": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test1",
+        "foo": "bar",
+        "something": "else",
+      },
+      "name": "TryAgain",
+      "output": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test1",
+        "foo": "bar",
+        "something": "else",
+      },
+      "result": Object {},
+    },
+    Object {
+      "input": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test1",
+        "foo": "bar",
+        "something": "else",
+      },
+      "name": "CheckStatus",
+      "output": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test2",
+        "foo": "bar",
+        "something": "else",
+      },
+      "result": Object {},
+    },
+    Object {
+      "input": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test2",
+        "foo": "bar",
+        "something": "else",
+      },
+      "name": "WhatShouldWeDo",
+      "output": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test2",
+        "foo": "bar",
+        "something": "else",
+      },
+      "result": Object {
+        "selected": "default",
+      },
+    },
+    Object {
+      "input": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test2",
+        "foo": "bar",
+        "something": "else",
+      },
+      "name": "TryAgain",
+      "output": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test2",
+        "foo": "bar",
+        "something": "else",
+      },
+      "result": Object {},
+    },
+    Object {
+      "input": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "test2",
+        "foo": "bar",
+        "something": "else",
+      },
+      "name": "CheckStatus",
+      "output": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "end",
+        "foo": "bar",
+        "something": "else",
+      },
+      "result": Object {},
+    },
+    Object {
+      "input": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "end",
+        "foo": "bar",
+        "something": "else",
+      },
+      "name": "WhatShouldWeDo",
+      "output": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "end",
+        "foo": "bar",
+        "something": "else",
+      },
+      "result": Object {
+        "selected": Object {
+          "Next": "Done",
+          "StringEquals": "end",
+          "Variable": "$.flag",
+        },
+      },
+    },
+    Object {
+      "input": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "end",
+        "foo": "bar",
+        "something": "else",
+      },
+      "name": "Done",
+      "output": Object {
+        "branches": "branch 1, branch 2",
+        "flag": "end",
+        "foo": "bar",
+        "something": "else",
+      },
+      "result": Object {},
+    },
+  ],
+}
+`;
+
+exports[`Sample test with javascript lambdas Same stepfunction in another scenario 1`] = `
 Object {
   "getSteps": [Function],
   "output": Object {
@@ -219,7 +485,7 @@ Object {
 }
 `;
 
-exports[`This is a test Should work 1`] = `
+exports[`Sample test with javascript lambdas Using a lambda map instead of simple resolver 1`] = `
 Object {
   "getSteps": [Function],
   "output": Object {

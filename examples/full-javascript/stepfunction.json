@@ -26,7 +26,7 @@
                     "States": {
                         "Branch2": {
                             "Type": "Task",
-                            "Resource": "${branch2}",
+                            "Resource": "arn:aws:lambda:region:account-id:function:branch2:4",
                             "End": true
                         }
                     }

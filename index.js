@@ -1,21 +1,8 @@
 const { Task, Wait, Pass, Choice, Succeed, Fail, Parallel } = require('./lib/handlers');
 const Stepfunction = require('./lib/stepfunction');
 const { loadFile } = require('./lib/helpers');
-
-const simpleLambdaResource = resource => {
-    resource = resource.replace('Lambda', '');
-    resource = resource.replace('.Arn', '');
-    resource = resource.replace('${', '');
-    resource = resource.replace('}', '');
-    let file = resource.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`);
-    if (file.length > 0 && file[0] === '-') {
-        file = file.substring(1);
-    }
-    return {
-        file,
-        function: 'handler',
-    };
-};
+const SimpleResolver = require('./lib/simple-resolver');
+const MapResolver = require('./lib/map-resolver');
 
 const Handlers = {
     Task: (step, context) => new Task(step, context),
@@ -37,22 +24,27 @@ const Handlers = {
 const load = params => {
     if (params.file) {
         return loadFile(params.file);
+    } else if (params.code) {
+        return params.code;
     } else {
-        throw new Error(`Need a stepfunction file`);
+        throw new Error(`Need a stepfunction file or code`);
     }
 };
 class StepfunctionTester {
     constructor(params) {
         const stepfunction = load(params);
         const handlerFactory = params.handlerFactory || Handlers.factory;
-        let lambdaResolver = params.lambdaResolver || simpleLambdaResource;
+        let lambdaResolver = params.lambdaResolver;
         if (lambdaResolver === 'simple') {
-            lambdaResolver = simpleLambdaResource;
+            lambdaResolver = SimpleResolver(params.lambdaPath || '.');
+        } else if (lambdaResolver === 'map') {
+            lambdaResolver = MapResolver(params.lambdas || '.');
         }
         const mocks = params.mocks || {};
         this.stepfunction = new Stepfunction({
             states: stepfunction.States,
-            start: stepfunction.StartAt,
+            start: params.startStep ? params.startStep : stepfunction.StartAt,
+            count: params.stepCount ? params.stepCount : false,
             mocks,
             handlerFactory,
             lambdaResolver,
